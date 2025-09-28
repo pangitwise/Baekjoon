@@ -9,7 +9,6 @@ using ll = long long;
 int dx[4] = { -1, 1, 0, 0 };
 int dy[4] = { 0, 0, -1, 1 };
 
-
 bool isValidCell(vector<vector<char>>& a, int nr, int nc) {
     size_t n = a.size();
     size_t m = a[0].size();
@@ -39,8 +38,8 @@ int bfs(vector<vector<char>>& a, queue<int>& qj, queue<int>& qf, int dep) {
             int nc = c + dy[j];
             if (isValidCell(a, nr, nc)) {
                 char ncell = a[nr][nc];
-                if (ncell == 'J' || ncell == '.') {
-                    a[nr][nc] = 'F';
+                if (ncell == '@' || ncell == '.') {
+                    a[nr][nc] = '*';
                     int nloc = nr * C + nc;
                     qf.push(nloc);
                 }
@@ -65,7 +64,7 @@ int bfs(vector<vector<char>>& a, queue<int>& qj, queue<int>& qf, int dep) {
             if (isValidCell(a, nr, nc)) {
                 char ncell = a[nr][nc];
                 if (ncell == '.') {
-                    a[nr][nc] = 'J';
+                    a[nr][nc] = '@';
                     int nloc = nr * C + nc;
                     qj.push(nloc);
                 }
@@ -77,13 +76,9 @@ int bfs(vector<vector<char>>& a, queue<int>& qj, queue<int>& qf, int dep) {
     return bfs(a, qj, qf, dep + 1);
 }
 
-
-int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-
+void escaping() {
     int R, C;
-    cin >> R >> C;
+    cin >> C >> R;
 
     vector<vector<char>> maze(R, vector<char>(C));
 
@@ -95,8 +90,8 @@ int main() {
             char chr;
             cin >> chr;
             int loc = i * C + j;
-            if (chr == 'J') qj.push(loc);
-            if (chr == 'F') qf.push(loc);
+            if (chr == '@') qj.push(loc);
+            if (chr == '*') qf.push(loc);
             maze[i][j] = chr;
         }
     }
@@ -108,6 +103,18 @@ int main() {
     }
     else {
         cout << "IMPOSSIBLE" << endl;
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+
+    for (int i = 0; i < t; i++) {
+        escaping();
     }
 
     return 0;
