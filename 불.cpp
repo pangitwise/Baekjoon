@@ -107,7 +107,7 @@ int main() {
         cout << ans << endl;
     }
     else {
-        cout << "Impossible" << endl;
+        cout << "IMPOSSIBLE" << endl;
     }
 
     return 0;
